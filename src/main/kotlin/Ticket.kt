@@ -1,3 +1,5 @@
+import kotlin.math.E
+
 class Ticket(
     private val tickerNumber: Int,
     private val parkingSpotNumber: Int,
@@ -9,5 +11,13 @@ class Ticket(
                 " Ticket Number: $tickerNumber\n" +
                 " Spot Number: $parkingSpotNumber\n" +
                 " Entry Date-time: $formattedEntryTime"
+    }
+
+    fun getParkingSpotNumber(): Int {
+        return parkingSpotNumber
+    }
+
+    fun getEntryTime(): Long{
+        return entryTime
     }
 }
