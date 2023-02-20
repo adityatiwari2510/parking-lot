@@ -6,13 +6,17 @@ class ParkingLot(private val parkingSpots: ParkingSpotRepository) {
         return parkingSpots.getAvailableParkingSpot()
     }
 
+    private fun occupyParkingSpot(parkingSpot: ParkingSpot) {
+        parkingSpot.occupyParkingSpot()
+    }
+
     fun park(vehicle: Vehicle, entryTime: Long): String {
         val parkingSpot = getAvailableParkingSpot()
 
         vehicle.assignParkingSpot(parkingSpot)
         vehicle.ticket = entryGate.issueTicket(parkingSpot, entryTime)
 
-        parkingSpot.occupyParkingSpot()
+        occupyParkingSpot(parkingSpot)
 
         return printTicket(vehicle.ticket)
     }
@@ -22,7 +26,7 @@ class ParkingLot(private val parkingSpots: ParkingSpotRepository) {
     }
 
     fun unPark(vehicle: Vehicle, exitTime: Long): String {
-        val fare = FareCalculator().calculateFare(vehicle.getEntryTime(),exitTime)
+        val fare = FareCalculator().calculateFare(vehicle.getEntryTime(), exitTime)
 
         val receipt = exitGate.issueReceipt(vehicle, exitTime, fare)
 
