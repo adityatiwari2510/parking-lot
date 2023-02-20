@@ -2,9 +2,12 @@ class ParkingLot(private val parkingSpots: ParkingSpotRepository) {
     private val entryGate: EntryGate = EntryGate()
     private val exitGate: ExitGate = ExitGate()
 
+    private fun getAvailableParkingSpot(): ParkingSpot {
+        return parkingSpots.getAvailableParkingSpot()
+    }
 
     fun park(vehicle: Vehicle, entryTime: Long): String {
-        val parkingSpot = parkingSpots.getAvailableParkingSpot()
+        val parkingSpot = getAvailableParkingSpot()
 
         vehicle.assignParkingSpot(parkingSpot)
         vehicle.ticket = entryGate.issueTicket(parkingSpot, entryTime)
